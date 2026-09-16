@@ -1,13 +1,49 @@
 // src/reference-parser.js
-// Turns user-typed references like "john 3:16" or "1 corinthians 13:4"
-// into { book, chapter, verse } matching the bible-api's book slugs.
+// Full 66-book alias map → bible-api's lowercase, hyphenated book slugs.
 
 const BOOK_ALIASES = {
-  genesis: 'genesis', gen: 'genesis',
-  exodus: 'exodus', exo: 'exodus',
-  psalms: 'psalms', psalm: 'psalms', ps: 'psalms',
-  proverbs: 'proverbs', prov: 'proverbs',
+  // Old Testament
+  genesis: 'genesis', gen: 'genesis', ge: 'genesis',
+  exodus: 'exodus', exo: 'exodus', ex: 'exodus',
+  leviticus: 'leviticus', lev: 'leviticus', lv: 'leviticus',
+  numbers: 'numbers', num: 'numbers', nu: 'numbers',
+  deuteronomy: 'deuteronomy', deut: 'deuteronomy', dt: 'deuteronomy',
+  joshua: 'joshua', josh: 'joshua', jos: 'joshua',
+  judges: 'judges', judg: 'judges', jdg: 'judges',
+  ruth: 'ruth', ru: 'ruth',
+  '1samuel': '1-samuel', '1sam': '1-samuel', '1sa': '1-samuel',
+  '2samuel': '2-samuel', '2sam': '2-samuel', '2sa': '2-samuel',
+  '1kings': '1-kings', '1kgs': '1-kings', '1ki': '1-kings',
+  '2kings': '2-kings', '2kgs': '2-kings', '2ki': '2-kings',
+  '1chronicles': '1-chronicles', '1chron': '1-chronicles', '1ch': '1-chronicles',
+  '2chronicles': '2-chronicles', '2chron': '2-chronicles', '2ch': '2-chronicles',
+  ezra: 'ezra', ezr: 'ezra',
+  nehemiah: 'nehemiah', neh: 'nehemiah',
+  esther: 'esther', esth: 'esther', est: 'esther',
+  job: 'job',
+  psalms: 'psalms', psalm: 'psalms', ps: 'psalms', pss: 'psalms',
+  proverbs: 'proverbs', prov: 'proverbs', pr: 'proverbs',
+  ecclesiastes: 'ecclesiastes', eccl: 'ecclesiastes', ecc: 'ecclesiastes',
+  songofsolomon: 'song-of-solomon', song: 'song-of-solomon', sos: 'song-of-solomon',
   isaiah: 'isaiah', isa: 'isaiah',
+  jeremiah: 'jeremiah', jer: 'jeremiah',
+  lamentations: 'lamentations', lam: 'lamentations',
+  ezekiel: 'ezekiel', ezek: 'ezekiel', eze: 'ezekiel',
+  daniel: 'daniel', dan: 'daniel',
+  hosea: 'hosea', hos: 'hosea',
+  joel: 'joel',
+  amos: 'amos',
+  obadiah: 'obadiah', obad: 'obadiah', oba: 'obadiah',
+  jonah: 'jonah', jon: 'jonah',
+  micah: 'micah', mic: 'micah',
+  nahum: 'nahum', nah: 'nahum',
+  habakkuk: 'habakkuk', hab: 'habakkuk',
+  zephaniah: 'zephaniah', zeph: 'zephaniah', zep: 'zephaniah',
+  haggai: 'haggai', hag: 'haggai',
+  zechariah: 'zechariah', zech: 'zechariah', zec: 'zechariah',
+  malachi: 'malachi', mal: 'malachi',
+
+  // New Testament
   matthew: 'matthew', matt: 'matthew', mt: 'matthew',
   mark: 'mark', mk: 'mark',
   luke: 'luke', lk: 'luke',
@@ -19,34 +55,22 @@ const BOOK_ALIASES = {
   galatians: 'galatians', gal: 'galatians',
   ephesians: 'ephesians', eph: 'ephesians',
   philippians: 'philippians', phil: 'philippians',
+  colossians: 'colossians', col: 'colossians',
+  '1thessalonians': '1-thessalonians', '1thess': '1-thessalonians',
+  '2thessalonians': '2-thessalonians', '2thess': '2-thessalonians',
+  '1timothy': '1-timothy', '1tim': '1-timothy',
+  '2timothy': '2-timothy', '2tim': '2-timothy',
+  titus: 'titus', tit: 'titus',
+  philemon: 'philemon', phlm: 'philemon',
+  hebrews: 'hebrews', heb: 'hebrews',
+  james: 'james', jas: 'james',
+  '1peter': '1-peter', '1pet': '1-peter',
+  '2peter': '2-peter', '2pet': '2-peter',
+  '1john': '1-john',
+  '2john': '2-john',
+  '3john': '3-john',
+  jude: 'jude',
   revelation: 'revelation', rev: 'revelation',
 };
 
-function normalizeBookName(raw) {
-  return raw.toLowerCase().replace(/\s+/g, '');
-}
-
-function parseReference(input) {
-  const trimmed = input.trim();
-  const match = trimmed.match(/^([1-3]?\s?[a-zA-Z]+)\s+(\d+):(\d+)$/);
-
-  if (!match) {
-    return null;
-  }
-
-  const [, rawBook, chapter, verse] = match;
-  const key = normalizeBookName(rawBook);
-  const book = BOOK_ALIASES[key];
-
-  if (!book) {
-    return null;
-  }
-
-  return {
-    book,
-    chapter: parseInt(chapter, 10),
-    verse: parseInt(verse, 10),
-  };
-}
-
-export { parseReference, BOOK_ALIASES };
+export { BOOK_ALIASES };
