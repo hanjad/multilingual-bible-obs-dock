@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bible Dock</title>
+  <link rel="stylesheet" href="css/dock.css" />
+</head>
+<body>
+  <header>
+    <p id="main-sub-label"></p>
+    <a href="onboarding.html">Change languages</a>
+  </header>
+
+  <div class="search-row">
+    <input type="text" id="reference-input" placeholder="e.g. john 3:16" />
+    <button id="search-btn">Search</button>
+  </div>
+  <p id="search-error" class="error" hidden></p>
+
+  <div id="results"></div>
+
+  <script type="module" src="src/dock.js"></script>
+</body>
+</html>
