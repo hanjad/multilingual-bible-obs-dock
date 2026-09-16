@@ -1,5 +1,6 @@
 // src/reference-parser.js
-// Full 66-book alias map → bible-api's lowercase, hyphenated book slugs.
+// Turns user-typed references like "john 3:16" or "1 corinthians 13:4"
+// into { book, chapter, verse } matching the bible-api's book slugs.
 
 const BOOK_ALIASES = {
   // Old Testament
@@ -73,4 +74,31 @@ const BOOK_ALIASES = {
   revelation: 'revelation', rev: 'revelation',
 };
 
-export { BOOK_ALIASES };
+function normalizeBookName(raw) {
+  return raw.toLowerCase().replace(/\s+/g, '');
+}
+
+function parseReference(input) {
+  const trimmed = input.trim();
+  const match = trimmed.match(/^([1-3]?\s?[a-zA-Z]+)\s+(\d+):(\d+)$/);
+
+  if (!match) {
+    return null;
+  }
+
+  const [, rawBook, chapter, verse] = match;
+  const key = normalizeBookName(rawBook);
+  const book = BOOK_ALIASES[key];
+
+  if (!book) {
+    return null;
+  }
+
+  return {
+    book,
+    chapter: parseInt(chapter, 10),
+    verse: parseInt(verse, 10),
+  };
+}
+
+export { parseReference, BOOK_ALIASES };
