@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bible Dock</title>
+</head>
+<body>
+  <script type="module">
+    import { isOnboarded } from './src/settings.js';
+
+    window.location.href = isOnboarded() ? 'dock.html' : 'onboarding.html';
+  </script>
+</body>
+</html>
