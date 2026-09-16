@@ -1,0 +1,64 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, system-ui, sans-serif;
+  background: transparent;
+  margin: 0;
+  padding: 0;
+}
+
+#verse-container {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 900px;
+  text-align: center;
+  padding: 20px 28px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+}
+
+.verse-block {
+  margin-bottom: 10px;
+}
+
+.verse-block:last-of-type {
+  margin-bottom: 0;
+}
+
+.verse-text {
+  font-size: 26px;
+  font-weight: 500;
+  color: #ffffff;
+  margin: 0 0 4px;
+  line-height: 1.4;
+}
+
+.verse-block.sub .verse-text {
+  font-size: 22px;
+  color: #e8e8e8;
+}
+
+.verse-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #9ec9ff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.verse-block.sub .verse-label {
+  color: #a8dcb4;
+}
+
+.verse-ref {
+  font-size: 13px;
+  color: #cfcfcf;
+  letter-spacing: 0.5px;
+  margin: 12px 0 0;
+}
