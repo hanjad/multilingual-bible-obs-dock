@@ -55,18 +55,19 @@ function renderResults(results, parsed) {
   const card = document.createElement('div');
   card.className = 'result-card';
 
-  results.forEach(({ lang, verse, ok }) => {
+  const mainSubResults = results.filter(
+    ({ lang }) => lang.id === mainLang.id || lang.id === subLang.id
+  );
+
+  mainSubResults.forEach(({ lang, verse, ok }) => {
     const row = document.createElement('div');
     row.className = 'lang-row';
 
     const isMain = lang.id === mainLang.id;
-    const isSub = lang.id === subLang.id;
-    if (isMain) row.classList.add('is-main');
-    if (isSub) row.classList.add('is-sub');
+    row.classList.add(isMain ? 'is-main' : 'is-sub');
 
-    const tag = isMain ? 'MAIN' : isSub ? 'SUB' : '';
     row.innerHTML = `
-      <p class="lang-label">${lang.label}${tag ? ` · ${tag}` : ''}</p>
+      <p class="lang-label">${lang.label} · ${isMain ? 'MAIN' : 'SUB'}</p>
       <p class="lang-text">${ok ? verse.text : 'Not available in this translation'}</p>
     `;
     card.appendChild(row);
